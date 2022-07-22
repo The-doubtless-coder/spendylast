@@ -1,6 +1,7 @@
 package com.spenndify.application.spendylast.spendyuser;
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,9 +21,16 @@ public class SpendyService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String emailOrPhone) throws UsernameNotFoundException {
         //TODO: FOR IF ELSE CREATE REPO THAT RETURNS USER NOT OPTIONAL THEN RETURN USER
-        return spendyRepository.findByEmailOrPhone(emailOrPhone).
-                orElseThrow(() -> new UsernameNotFoundException(String.format(response, emailOrPhone)));
+//        return spendyRepository.findByEmailOrPhone(emailOrPhone)
+//                .orElseThrow(() -> new UsernameNotFoundException(String.format(response, emailOrPhone)));
+        SpendyUser user = spendyRepository.findByEmailOrPhone(emailOrPhone);
+        if(user==null){
+            throw new UsernameNotFoundException(String.format(response, emailOrPhone));
+        }
+        return new User(user.getUsername(), user.getPassword(), user.getAuthorities());
     }
+
+
     public String signUpSpendyUser(SpendyUser spendyUser) throws EntityExistsException {
         Boolean userPresent = spendyRepository.findByIdNumber(spendyUser.getIdNumber()).isPresent();
         //todo: check for phone or email; however, in the db these values are unique

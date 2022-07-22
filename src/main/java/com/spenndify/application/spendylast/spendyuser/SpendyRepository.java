@@ -11,6 +11,7 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 public interface SpendyRepository extends JpaRepository<SpendyUser, Long> {
     @Query("select user FROM SpendyUser user WHERE user.email=?1 OR user.phone=?1")
-    Optional<SpendyUser> findByEmailOrPhone(String emailOrPhone);
+    SpendyUser findByEmailOrPhone(String emailOrPhone);
+//    Optional<SpendyUser> findByEmailOrPhone(String emailOrPhone);
     Optional<SpendyUser> findByIdNumber(String idNumber); //for the if-else method I wanted to implement
 }
