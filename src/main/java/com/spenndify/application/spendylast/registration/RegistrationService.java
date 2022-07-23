@@ -6,6 +6,7 @@ import com.spenndify.application.spendylast.spendyuser.SpendyRoles;
 import com.spenndify.application.spendylast.spendyuser.SpendyService;
 import com.spenndify.application.spendylast.spendyuser.SpendyUser;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.InvalidPropertiesFormatException;
@@ -35,5 +36,6 @@ public class RegistrationService {
                 registrationRequest.getPassword(),
                 SpendyRoles.USER));
     }
+
 
 }
