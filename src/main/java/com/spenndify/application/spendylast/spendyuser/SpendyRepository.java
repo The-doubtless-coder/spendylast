@@ -7,18 +7,24 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
-import java.util.UUID;
 
 @Repository
 @Transactional(readOnly = true)
 public interface SpendyRepository extends JpaRepository<SpendyUser, Long> {
     @Query("select user FROM SpendyUser user WHERE user.email=?1 OR user.phone=?1")
     SpendyUser findByEmailOrPhone(String emailOrPhone);
-    Optional<SpendyUser> findByIdNumber(String idNumber); //for the if-else method I wanted to implement
+    SpendyUser findByIdNumber(String idNumber); //for the if-else method I wanted to implement
+    Optional<SpendyUser> findByPhone(String phone);
 
     @Transactional
     @Modifying
     @Query("UPDATE SpendyUser s " +
             "SET s.enabled = TRUE WHERE s.phone = ?1")
     void enableSpendyUser(String phone);
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE SpendyUser s " +
+            "SET s.password = ?1 WHERE s.idNumber = ?2")
+    void changeUserPassword(String password, String idNumber);
 }

@@ -42,7 +42,7 @@ public class SpendyService implements UserDetailsService {
 
 
     public ResponseEntity<String> signUpSpendyUser(SpendyUser spendyUser) throws EntityExistsException {
-        Boolean userPresent = spendyRepository.findByIdNumber(spendyUser.getIdNumber()).isPresent();
+        Boolean userPresent = spendyRepository.findByPhone(spendyUser.getPhone()).isPresent();
         //todo: check for phone or email; however, in the db these values are unique
         //todo: change exceptions to illegal state exceptions
         if(userPresent){
@@ -68,5 +68,9 @@ public class SpendyService implements UserDetailsService {
     }
     public void enableSpendyUser(String phone) {
         spendyRepository.enableSpendyUser(phone);
+    }
+
+    public void changeSpendyUserPassword(String password, String idNumber){
+        spendyRepository.changeUserPassword(password, idNumber);
     }
 }
