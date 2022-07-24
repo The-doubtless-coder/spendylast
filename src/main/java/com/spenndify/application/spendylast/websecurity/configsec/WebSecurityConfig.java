@@ -35,9 +35,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and().exceptionHandling().and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);//register policy
-        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);//register filter
+        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);;//register filter
     }
-
     @Override//accepts the authentication provider
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(spendyService);//get username and password from the service

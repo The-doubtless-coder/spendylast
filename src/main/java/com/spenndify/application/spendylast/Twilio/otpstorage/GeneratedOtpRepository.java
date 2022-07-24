@@ -10,5 +10,5 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 public interface GeneratedOtpRepository
         extends JpaRepository<GeneratedOtp, Long> {
-    Optional<GeneratedOtp> findByOtp(String otp);
+    GeneratedOtp findByOtp(String otp);
 }

@@ -18,10 +18,17 @@ import java.util.UUID;
 @Entity
 @Table(name= "spendy_user")
 public class SpendyUser implements UserDetails {
+    @SequenceGenerator(
+            name = "user_sequence",
+            sequenceName = "user_sequence",
+            allocationSize = 1
+    )
     @Id
-    @GeneratedValue
-    @Column(name= "ID",updatable = false)
-    private UUID spid;
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "user_sequence"
+    )
+    private Long id;
     @Column(name= "first_name", nullable = false)
     private String firstName;
     @Column(name= "last_name", nullable = false)
@@ -43,7 +50,7 @@ public class SpendyUser implements UserDetails {
     @Enumerated(EnumType.STRING)
     private SpendyRoles userRole;
     private Boolean locked = false;
-    private Boolean enabled = true;
+    private Boolean enabled = false;
     //TODO: ENSURE YOU USE THE ACCOUNT LOCKED AND ENABLED FEATURES
     //TODO: USE TWILLIO TO SEND OTP TO EMAIL FOR WEB
     //TODO: MAP SECURITY QUESTIONS USING MANY TO MANY (INPUT ON WEB)

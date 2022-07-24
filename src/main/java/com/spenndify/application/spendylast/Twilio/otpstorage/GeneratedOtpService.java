@@ -17,6 +17,6 @@ public class GeneratedOtpService {
     }
 
     public Optional<GeneratedOtp> getOtp(String otp) {
-        return generatedOtpRepository.findByOtp(otp);
+        return Optional.ofNullable(generatedOtpRepository.findByOtp(otp));
     }
 }

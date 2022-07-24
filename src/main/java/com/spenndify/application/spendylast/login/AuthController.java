@@ -28,6 +28,7 @@ public class AuthController {
             throw new Exception("Wrong login credentials provided, " +
                 "Kindly recheck and try again");
         }
+        //todo: unlock account
         return jwtUtil.generateToken(authRequest.getUserName());
     }
 }

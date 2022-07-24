@@ -18,7 +18,7 @@ public class RegistrationService {
     private PhoneValidator phoneValidator;
     private SpendyService spendyService;
     private final String response = "Email %s or Phone %s is invalid!, Recheck and try again";
-    public String register(RegistrationRequest registrationRequest) throws InvalidPropertiesFormatException {
+    public ResponseEntity<String> register(RegistrationRequest registrationRequest) throws InvalidPropertiesFormatException {
         Boolean emailValid = emailValidator.test(registrationRequest.getEmail());
         Boolean phoneValid = phoneValidator.test(registrationRequest.getPhone());
         if(!emailValid||!phoneValid){

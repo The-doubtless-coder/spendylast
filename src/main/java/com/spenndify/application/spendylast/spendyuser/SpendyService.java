@@ -41,7 +41,7 @@ public class SpendyService implements UserDetailsService {
     }
 
 
-    public String signUpSpendyUser(SpendyUser spendyUser) throws EntityExistsException {
+    public ResponseEntity<String> signUpSpendyUser(SpendyUser spendyUser) throws EntityExistsException {
         Boolean userPresent = spendyRepository.findByIdNumber(spendyUser.getIdNumber()).isPresent();
         //todo: check for phone or email; however, in the db these values are unique
         //todo: change exceptions to illegal state exceptions
@@ -51,8 +51,6 @@ public class SpendyService implements UserDetailsService {
         }
         String passwordEncoded = bCryptPasswordEncoder.encode(spendyUser.getPassword());
         spendyUser.setPassword(passwordEncoded);
-        //todo: send twilio message
-        //todo: then activate or enable aaccount
         spendyRepository.save(spendyUser);
 
         String otp = generateOTP();
@@ -62,12 +60,13 @@ public class SpendyService implements UserDetailsService {
         generatedOtpService.saveGeneratedOtp(generatedOtp);
         String message = "Buda Boss! Otp is " + otp + ". Itumie kuregista spenndify";
         twilioSmsSender.sendSms(spendyUser.getPhone(), message);
-        //todo: activate after verify
-
-        return"Tis done comrade, User successfully registered!";
+        return new ResponseEntity<>("Tis done comrade, User successfully registered!", HttpStatus.OK);
     }
     private String generateOTP() {
         return new DecimalFormat("0000")
                 .format(new Random().nextInt(9999));
+    }
+    public void enableSpendyUser(String phone) {
+        spendyRepository.enableSpendyUser(phone);
     }
 }
