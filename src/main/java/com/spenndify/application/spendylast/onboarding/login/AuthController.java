@@ -29,6 +29,7 @@ public class AuthController {
                 "Kindly recheck and try again");
         }
         //todo: unlock account
+
         return jwtUtil.generateToken(authRequest.getUserName());
     }
 }
