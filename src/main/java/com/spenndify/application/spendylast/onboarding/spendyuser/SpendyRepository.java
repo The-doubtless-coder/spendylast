@@ -14,7 +14,8 @@ public interface SpendyRepository extends JpaRepository<SpendyUser, Long> {
     @Query("select user FROM SpendyUser user WHERE user.email=?1 OR user.phone=?1")
     SpendyUser findByEmailOrPhone(String emailOrPhone);
     SpendyUser findByIdNumber(String idNumber); //for the if-else method I wanted to implement
-    Optional<SpendyUser> findByPhone(String phone);
+    SpendyUser findByPhone(String phone);
+
 
     @Transactional
     @Modifying

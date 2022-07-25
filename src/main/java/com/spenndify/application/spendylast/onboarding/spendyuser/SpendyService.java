@@ -4,6 +4,7 @@ import com.spenndify.application.spendylast.onboarding.Twilio.TwilioSmsSender;
 import com.spenndify.application.spendylast.onboarding.Twilio.otpstorage.GeneratedOtp;
 import com.spenndify.application.spendylast.onboarding.Twilio.otpstorage.GeneratedOtpService;
 import lombok.AllArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.User;
@@ -42,10 +43,10 @@ public class SpendyService implements UserDetailsService {
 
 
     public ResponseEntity<String> signUpSpendyUser(SpendyUser spendyUser) throws EntityExistsException {
-        Boolean userPresent = spendyRepository.findByPhone(spendyUser.getPhone()).isPresent();
+        SpendyUser userPresent = spendyRepository.findByPhone(spendyUser.getPhone());
         //todo: check for phone or email; however, in the db these values are unique
         //todo: change exceptions to illegal state exceptions
-        if(userPresent){
+        if(userPresent!=null){
             throw new EntityExistsException("User exists! use NON-REGISTERED credentials. " +
                     "Either email, phone or id is reused");
         }
@@ -62,7 +63,7 @@ public class SpendyService implements UserDetailsService {
         twilioSmsSender.sendSms(spendyUser.getPhone(), message);
         return new ResponseEntity<>("Tis done comrade, User successfully registered!", HttpStatus.OK);
     }
-    private String generateOTP() {
+    private @NotNull String generateOTP() {
         return new DecimalFormat("0000")
                 .format(new Random().nextInt(9999));
     }
