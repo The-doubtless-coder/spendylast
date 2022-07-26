@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @Transactional(readOnly = true)
 public interface SpendyRepository extends JpaRepository<SpendUser, Long> {
-    @Query("select user FROM SpendyUser user WHERE user.email=?1 OR user.phone=?1")
+    @Query("SELECT user FROM SpendUser u WHERE u.email=?1 OR u.phone=?1")
     SpendUser findByEmailOrPhone(String emailOrPhone);
     SpendUser findByIdNumber(String idNumber); //for the if-else method I wanted to implement
     SpendUser findByPhone(String phone);
