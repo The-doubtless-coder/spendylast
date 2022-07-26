@@ -20,7 +20,7 @@ public class VerifyService {
     public ResponseEntity<String> compareToStoredOtp( VerifyRequest verifyRequest) throws Exception {
         GeneratedOtp retrievedOtp = generatedOtpRepository.findByOtp(verifyRequest.getReceivedOtp());
         if (retrievedOtp == null) {
-            throw new Exception("Otp not available in the spendy database");
+            throw new Exception("Otp not available- verification failed");
         }
 
         if (retrievedOtp.getExpiresAt().isBefore(LocalDateTime.now())) {
@@ -28,7 +28,7 @@ public class VerifyService {
         }
 
         if (retrievedOtp.getOtp().equals(verifyRequest.getReceivedOtp())) {
-            spendyService.enableSpendyUser(retrievedOtp.getSpendyUser().getPhone());
+//            spendyService.enableSpendyUser(retrievedOtp.getSpendyUser().getPhone());
             return new ResponseEntity<>("Otp successfully verified, now set password", HttpStatus.OK);
         } else {
             return new ResponseEntity<>("Otp verification failed!, please try again "

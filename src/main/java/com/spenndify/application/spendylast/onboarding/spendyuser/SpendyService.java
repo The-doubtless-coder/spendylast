@@ -54,13 +54,13 @@ public class SpendyService implements UserDetailsService {
         spendyUser.setPassword(passwordEncoded);
         spendyRepository.save(spendyUser);
 
-        String otp = generateOTP();
-        GeneratedOtp generatedOtp = new GeneratedOtp(otp,
-                LocalDateTime.now(),
-                LocalDateTime.now().plusDays(5), spendyUser);
-        generatedOtpService.saveGeneratedOtp(generatedOtp);
-        String message = "Buda Boss! Otp is " + otp + ". Itumie kuregista spenndify";
-        twilioSmsSender.sendSms(spendyUser.getPhone(), message);
+//        String otp = generateOTP();
+//        GeneratedOtp generatedOtp = new GeneratedOtp(otp,
+//                LocalDateTime.now(),
+//                LocalDateTime.now().plusDays(5), spendyUser);
+//        generatedOtpService.saveGeneratedOtp(generatedOtp);
+//        String message = "Buda Boss! Otp is " + otp + ". Itumie kuregista spenndify";
+//        twilioSmsSender.sendSms(spendyUser.getPhone(), message);
         return new ResponseEntity<>("Tis done comrade, User successfully registered!", HttpStatus.OK);
     }
     private @NotNull String generateOTP() {

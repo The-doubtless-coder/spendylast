@@ -1,39 +1,50 @@
 package com.spenndify.application.spendylast.onboarding.Twilio;
 
 import com.spenndify.application.spendylast.onboarding.Twilio.Config.TwilioConfiguration;
+import com.spenndify.application.spendylast.onboarding.Twilio.otpstorage.GeneratedOtp;
+import com.spenndify.application.spendylast.onboarding.Twilio.otpstorage.GeneratedOtpService;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.rest.api.v2010.account.MessageCreator;
 import com.twilio.type.PhoneNumber;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DecimalFormat;
+import java.time.LocalDateTime;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service("twilio")
+@AllArgsConstructor
 public class TwilioSmsSender{
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TwilioSmsSender.class);
 
     private final TwilioConfiguration twilioConfiguration;
+    private final GeneratedOtpService generatedOtpService;
 
-    @Autowired
-    public TwilioSmsSender(TwilioConfiguration twilioConfiguration) {
-        this.twilioConfiguration = twilioConfiguration;
-    }
 
-    public void sendSms(String phone, String message) {
-        if (isPhoneNumberValid(phone)) {
-            PhoneNumber to = new PhoneNumber(phone);
+    public void sendSms(SendRequest sendRequest) throws IllegalStateException{
+        if (isPhoneNumberValid(sendRequest.getPhone())){
+            PhoneNumber to = new PhoneNumber(sendRequest.getPhone());
             PhoneNumber from = new PhoneNumber(twilioConfiguration.getTrialNumber());
+            String otp = generateOTP();
+
+            GeneratedOtp generatedOtp = new GeneratedOtp(otp,
+                LocalDateTime.now(),
+                LocalDateTime.now().plusSeconds(10));
+            generatedOtpService.saveGeneratedOtp(generatedOtp);
+
+            String message = "Buda Boss! Otp is " + otp + ". Itumie kuregista spenndify";
             MessageCreator creator = Message.creator(to, from, message);
             creator.create();
-            LOGGER.info("Send sms {}", phone);
+            LOGGER.info("Send sms {}", sendRequest);
         } else {
             throw new IllegalArgumentException(
-                    "Phone number [" + phone + "] is not a valid number"
+                    "Phone number [" + sendRequest.getPhone() + "] is not a valid number, start with +254"
             );
         }
 
@@ -43,6 +54,10 @@ public class TwilioSmsSender{
         Pattern pattern = Pattern.compile("(?:\\+254)(7(?:(?:[9][0-9])|(?:[8][0-9])|(?:[7][0-9])|(?:[6][0-9])|(?:[5][0-9])|(?:[4][0-8])|(?:[3][0-9])|(?:[2][0-9])|(?:[1][0-9])|([0][0-9]))[0-9]{6})");
         Matcher match = pattern.matcher(s);
         return (match.find() && match.group().equals(s));
+    }
+    public String generateOTP(){
+        return new DecimalFormat("0000")
+                .format(new Random().nextInt(9999));
     }
 }
 

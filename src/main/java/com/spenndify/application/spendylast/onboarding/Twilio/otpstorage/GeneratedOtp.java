@@ -35,17 +35,16 @@ public class GeneratedOtp {
     @Column(nullable = false)
     private LocalDateTime expiresAt;
 
-    @ManyToOne
-    @JoinColumn(
-            nullable = false,
-            name = "spendy_user_id"
-    )
-    private SpendyUser spendyUser;
+//    @ManyToOne
+//    @JoinColumn(
+//            nullable = false,
+//            name = "spendy_user_id"
+//    )
+//    private SpendyUser spendyUser;
 
-    public GeneratedOtp(String otp, LocalDateTime createdAt, LocalDateTime expiresAt, SpendyUser spendyUser) {
+    public GeneratedOtp(String otp, LocalDateTime createdAt, LocalDateTime expiresAt) {
         this.otp = otp;
         this.createdAt = createdAt;
         this.expiresAt = expiresAt;
-        this.spendyUser = spendyUser;
     }
 }

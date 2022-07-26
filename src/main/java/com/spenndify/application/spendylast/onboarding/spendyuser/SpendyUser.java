@@ -49,7 +49,7 @@ public class SpendyUser implements UserDetails {
     @Enumerated(EnumType.STRING)
     private SpendyRoles userRole;
     private Boolean locked = false;
-    private Boolean enabled = false;
+    private Boolean enabled = true;
     //TODO: ENSURE YOU USE THE ACCOUNT LOCKED AND ENABLED FEATURES
     //TODO: USE TWILLIO TO SEND OTP TO EMAIL FOR WEB
     //TODO: MAP SECURITY QUESTIONS USING MANY TO MANY (INPUT ON WEB)
