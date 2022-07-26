@@ -2,7 +2,7 @@ package com.spenndify.application.spendylast.onboarding.registration;
 
 import com.spenndify.application.spendylast.onboarding.registration.validations.PhoneValidator;
 import com.spenndify.application.spendylast.onboarding.spendyuser.SpendyRoles;
-import com.spenndify.application.spendylast.onboarding.spendyuser.SpendyUser;
+import com.spenndify.application.spendylast.onboarding.spendyuser.SpendUser;
 import com.spenndify.application.spendylast.onboarding.registration.validations.EmailValidator;
 import com.spenndify.application.spendylast.onboarding.spendyuser.SpendyService;
 import lombok.AllArgsConstructor;
@@ -25,7 +25,7 @@ public class RegistrationService {
             throw new InvalidPropertiesFormatException(String.format(response, registrationRequest.getEmail(),
                     registrationRequest.getPhone()));
         }
-        return spendyService.signUpSpendyUser(new SpendyUser(registrationRequest.getFirstName(),
+        return spendyService.signUpSpendyUser(new SpendUser(registrationRequest.getFirstName(),
                 registrationRequest.getLastName(),
                 registrationRequest.getIdNumber(),
                 registrationRequest.getEmail(),

@@ -1,8 +1,6 @@
 package com.spenndify.application.spendylast.onboarding.spendyuser;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,12 +9,13 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.Collections;
 
-@Data
+@Setter
+@Getter
 @NoArgsConstructor
 @ToString
 @Entity
-//@Table(name= "spenduser")
-public class SpendyUser implements UserDetails {
+@Table(name= "spend_user")
+public class SpendUser implements UserDetails {
     @SequenceGenerator(
             name = "user_sequence",
             sequenceName = "user_sequence",
@@ -54,7 +53,7 @@ public class SpendyUser implements UserDetails {
     //TODO: USE TWILLIO TO SEND OTP TO EMAIL FOR WEB
     //TODO: MAP SECURITY QUESTIONS USING MANY TO MANY (INPUT ON WEB)
 
-    public SpendyUser(String firstName, String lastName, String idNumber, String email, String phone, String questionOne, String questionTwo, String questionThree, String password, SpendyRoles userRole) {
+    public SpendUser(String firstName, String lastName, String idNumber, String email, String phone, String questionOne, String questionTwo, String questionThree, String password, SpendyRoles userRole) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.idNumber = idNumber;

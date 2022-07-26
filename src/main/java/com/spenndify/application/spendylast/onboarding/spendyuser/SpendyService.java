@@ -1,7 +1,6 @@
 package com.spenndify.application.spendylast.onboarding.spendyuser;
 
 import com.spenndify.application.spendylast.onboarding.Twilio.TwilioSmsSender;
-import com.spenndify.application.spendylast.onboarding.Twilio.otpstorage.GeneratedOtp;
 import com.spenndify.application.spendylast.onboarding.Twilio.otpstorage.GeneratedOtpService;
 import lombok.AllArgsConstructor;
 import org.jetbrains.annotations.NotNull;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityExistsException;
 import java.text.DecimalFormat;
-import java.time.LocalDateTime;
 import java.util.Random;
 
 @Service
@@ -34,7 +32,7 @@ public class SpendyService implements UserDetailsService {
         //TODO: FOR IF ELSE CREATE REPO THAT RETURNS USER NOT OPTIONAL THEN RETURN USER
 //        return spendyRepository.findByEmailOrPhone(emailOrPhone)
 //                .orElseThrow(() -> new UsernameNotFoundException(String.format(response, emailOrPhone)));
-        SpendyUser user = spendyRepository.findByEmailOrPhone(emailOrPhone);
+        SpendUser user = spendyRepository.findByEmailOrPhone(emailOrPhone);
         if(user==null){
             throw new UsernameNotFoundException(String.format(response, emailOrPhone));
         }
@@ -42,17 +40,17 @@ public class SpendyService implements UserDetailsService {
     }
 
 
-    public ResponseEntity<String> signUpSpendyUser(SpendyUser spendyUser) throws EntityExistsException {
-        SpendyUser userPresent = spendyRepository.findByPhone(spendyUser.getPhone());
+    public ResponseEntity<String> signUpSpendyUser(SpendUser spendUser) throws EntityExistsException {
+        SpendUser userPresent = spendyRepository.findByPhone(spendUser.getPhone());
         //todo: check for phone or email; however, in the db these values are unique
         //todo: change exceptions to illegal state exceptions
         if(userPresent!=null){
             throw new EntityExistsException("User exists! use NON-REGISTERED credentials. " +
                     "Either email, phone or id is reused");
         }
-        String passwordEncoded = bCryptPasswordEncoder.encode(spendyUser.getPassword());
-        spendyUser.setPassword(passwordEncoded);
-        spendyRepository.save(spendyUser);
+        String passwordEncoded = bCryptPasswordEncoder.encode(spendUser.getPassword());
+        spendUser.setPassword(passwordEncoded);
+        spendyRepository.save(spendUser);
 
 //        String otp = generateOTP();
 //        GeneratedOtp generatedOtp = new GeneratedOtp(otp,

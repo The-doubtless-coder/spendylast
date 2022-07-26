@@ -2,7 +2,7 @@ package com.spenndify.application.spendylast.onboarding.forgotpassword;
 
 import com.spenndify.application.spendylast.onboarding.spendyuser.SpendyRepository;
 import com.spenndify.application.spendylast.onboarding.spendyuser.SpendyService;
-import com.spenndify.application.spendylast.onboarding.spendyuser.SpendyUser;
+import com.spenndify.application.spendylast.onboarding.spendyuser.SpendUser;
 import lombok.AllArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpStatus;
@@ -20,13 +20,13 @@ public class ForgotPasswordService {
     @Transactional
     public ResponseEntity<String> checkIdValidateQuestions(@NotNull ForgotPasswordRequest forgotPasswordRequest)
             throws IllegalStateException{
-        SpendyUser spendyUser = spendyRepository.findByIdNumber(forgotPasswordRequest.getIdNumber());
-        if(spendyUser==null){
+        SpendUser spendUser = spendyRepository.findByIdNumber(forgotPasswordRequest.getIdNumber());
+        if(spendUser ==null){
             throw new IllegalStateException("User does not exist!");
         }
-        if(spendyUser.getQuestionOne().equals(forgotPasswordRequest.getResponseToSecurityQuestion())||
-                spendyUser.getQuestionTwo().equals(forgotPasswordRequest.getResponseToSecurityQuestion())||
-                spendyUser.getQuestionThree().equals(forgotPasswordRequest.getResponseToSecurityQuestion())){
+        if(spendUser.getQuestionOne().equals(forgotPasswordRequest.getResponseToSecurityQuestion())||
+                spendUser.getQuestionTwo().equals(forgotPasswordRequest.getResponseToSecurityQuestion())||
+                spendUser.getQuestionThree().equals(forgotPasswordRequest.getResponseToSecurityQuestion())){
             spendyService.changeSpendyUserPassword(bCryptPasswordEncoder
                     .encode(forgotPasswordRequest.getNewPassword()), forgotPasswordRequest.getIdNumber());
             return new ResponseEntity<>("password changed successfully", HttpStatus.OK);

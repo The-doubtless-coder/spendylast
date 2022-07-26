@@ -1,6 +1,5 @@
 package com.spenndify.application.spendylast.onboarding.Twilio.otpstorage;
 
-import com.spenndify.application.spendylast.onboarding.spendyuser.SpendyUser;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
