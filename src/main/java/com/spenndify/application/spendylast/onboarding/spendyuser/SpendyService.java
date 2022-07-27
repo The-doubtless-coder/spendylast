@@ -1,7 +1,5 @@
 package com.spenndify.application.spendylast.onboarding.spendyuser;
 
-import com.spenndify.application.spendylast.onboarding.Twilio.TwilioSmsSender;
-import com.spenndify.application.spendylast.onboarding.Twilio.otpstorage.GeneratedOtpService;
 import lombok.AllArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpStatus;
@@ -22,8 +20,6 @@ import java.util.Random;
 public class SpendyService implements UserDetailsService {
     private final SpendyRepository spendyRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final TwilioSmsSender twilioSmsSender;
-    private final GeneratedOtpService generatedOtpService;
     private final static String response = "User with Username %s is non-existent. " +
             "Kindly Check your credentials and try again";
 

@@ -9,12 +9,10 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.Collections;
 
-@Setter
-@Getter
+@Data
 @NoArgsConstructor
 @ToString
-@Entity
-@Table(name= "spend_user")
+@Entity(name = "SpendUser")
 public class SpendUser implements UserDetails {
     @SequenceGenerator(
             name = "user_sequence",
