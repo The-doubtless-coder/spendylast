@@ -1,5 +1,7 @@
 spring:
   datasource:
+    hikari:
+      schema:
     driver-Class-Name: org.postgresql.Driver
 
   jpa:
