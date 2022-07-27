@@ -12,7 +12,8 @@ import java.util.Collections;
 @Data
 @NoArgsConstructor
 @ToString
-@Entity(name = "SpendUser")
+@Entity
+@Table(name = "spend_user")
 public class SpendUser implements UserDetails {
     @SequenceGenerator(
             name = "user_sequence",
