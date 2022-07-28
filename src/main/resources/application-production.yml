@@ -1,15 +1,15 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://ec2-3-222-74-92.compute-1.amazonaws.com/db3krpi27ua11l
-    username: zyjwjfeogwhrdf
-    password: 25dac714ca1bcfa363958ab7f94b3ca6cfee51e1aee8aa0a0efb0fbf887a20da
+    url: jdbc:postgresql://ec2-54-208-104-27.compute-1.amazonaws.com:5432/d56nf8oooj2da3
+    username: sktsyuwdiilsvt
+    password: a3f2a7da77099d48b59b885cb709f757d8840543023b002a07b647941d25cec8
 
   jpa:
     properties:
       hibernate:
         format_sql: true
-        dialect: org.hibernate.dialect.PostgreSQL81
-    hibernate.ddl-auto: create-drop
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate.ddl-auto: create
     generate-ddl: true
     show-sql: true
