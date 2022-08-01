@@ -3,6 +3,8 @@ package com.spenndify.application.spendylast.onboarding.Twilio;
 import com.spenndify.application.spendylast.onboarding.Twilio.Config.TwilioConfiguration;
 import com.spenndify.application.spendylast.onboarding.Twilio.otpstorage.GeneratedOtp;
 import com.spenndify.application.spendylast.onboarding.Twilio.otpstorage.GeneratedOtpService;
+import com.spenndify.application.spendylast.onboarding.spendyuser.SpendUser;
+import com.spenndify.application.spendylast.onboarding.spendyuser.SpendyRepository;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.rest.api.v2010.account.MessageCreator;
 import com.twilio.type.PhoneNumber;
@@ -26,7 +28,6 @@ public class TwilioSmsSender{
     private final TwilioConfiguration twilioConfiguration;
     private final GeneratedOtpService generatedOtpService;
 
-
     public void sendSms(SendRequest sendRequest) throws IllegalStateException{
         if (isPhoneNumberValid(sendRequest.getPhone())){
             PhoneNumber to = new PhoneNumber(sendRequest.getPhone());
@@ -35,7 +36,7 @@ public class TwilioSmsSender{
 
             GeneratedOtp generatedOtp = new GeneratedOtp(otp,
                 LocalDateTime.now(),
-                LocalDateTime.now().plusSeconds(10));
+                LocalDateTime.now().plusSeconds(15));
             generatedOtpService.saveGeneratedOtp(generatedOtp);
 
             String message = "Buda Boss! Otp is " + otp + ". Itumie kuregista spenndify";
