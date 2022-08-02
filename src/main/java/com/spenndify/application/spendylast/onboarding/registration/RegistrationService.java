@@ -17,13 +17,16 @@ public class RegistrationService {
     private EmailValidator emailValidator;
     private PhoneValidator phoneValidator;
     private SpendyService spendyService;
-    private final String response = "Email %s or Phone %s is invalid!, Recheck and try again";
+    private final String response = "Email %s is invalid!, Recheck and try again";
+    private final String response_1 = "Phone %s is invalid!, Recheck and try again";
     public ResponseEntity<SpendUser> register(RegistrationRequest registrationRequest) throws InvalidPropertiesFormatException {
         boolean emailValid = emailValidator.test(registrationRequest.getEmail());
         boolean phoneValid = phoneValidator.test(registrationRequest.getPhone());
-        if(!emailValid||!phoneValid){
-            throw new InvalidPropertiesFormatException(String.format(response, registrationRequest.getEmail(),
-                    registrationRequest.getPhone()));
+        if(!emailValid){
+            throw new InvalidPropertiesFormatException(String.format(response, registrationRequest.getEmail()));
+        }
+        if(!phoneValid){
+            throw new InvalidPropertiesFormatException(String.format(response_1, registrationRequest.getPhone()));
         }
         return spendyService.signUpSpendyUser(new SpendUser(registrationRequest.getFirstName(),
                 registrationRequest.getLastName(),
