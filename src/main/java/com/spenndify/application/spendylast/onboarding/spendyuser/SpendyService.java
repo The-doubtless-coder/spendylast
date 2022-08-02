@@ -36,7 +36,7 @@ public class SpendyService implements UserDetailsService {
     }
 
 
-    public ResponseEntity<String> signUpSpendyUser(SpendUser spendUser) throws EntityExistsException {
+    public ResponseEntity<SpendUser> signUpSpendyUser(SpendUser spendUser) throws EntityExistsException {
         SpendUser userPresent = spendyRepository.findByPhone(spendUser.getPhone());
         //todo: check for phone or email; however, in the db these values are unique
         //todo: change exceptions to illegal state exceptions
@@ -55,7 +55,7 @@ public class SpendyService implements UserDetailsService {
 //        generatedOtpService.saveGeneratedOtp(generatedOtp);
 //        String message = "Buda Boss! Otp is " + otp + ". Itumie kuregista spenndify";
 //        twilioSmsSender.sendSms(spendyUser.getPhone(), message);
-        return new ResponseEntity<>("Tis done comrade, User successfully registered!", HttpStatus.OK);
+        return new ResponseEntity<>(spendUser, HttpStatus.OK);
     }
     private @NotNull String generateOTP() {
         return new DecimalFormat("0000")

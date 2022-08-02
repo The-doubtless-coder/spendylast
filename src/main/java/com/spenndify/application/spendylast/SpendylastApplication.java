@@ -10,6 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class SpendylastApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(SpendylastApplication.class, args);
 	}
 //	@Bean
