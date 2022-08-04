@@ -3,10 +3,11 @@ package com.spenndify.application.spendylast.onboarding.forgotpassword;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-//@CrossOrigin("*")
+
 @RestController
 @RequestMapping("/spendy/user")
 @AllArgsConstructor
+@CrossOrigin(origins="*")
 public class ForgotPasswordController {
     private final ForgotPasswordService forgotPasswordService;
 

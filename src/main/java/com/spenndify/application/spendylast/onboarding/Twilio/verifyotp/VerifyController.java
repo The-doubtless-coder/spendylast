@@ -6,10 +6,10 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-//@CrossOrigin("*")
 @RestController
 @AllArgsConstructor
 @RequestMapping("/spendy/user")
+@CrossOrigin(origins="*")
 public class VerifyController {
 
     private final VerifyService verifyService;

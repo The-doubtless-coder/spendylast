@@ -1,4 +1,4 @@
-package com.spenndify.application.spendylast.onboarding.websecurity.cors;
+package com.spenndify.application.spendylast.reader;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

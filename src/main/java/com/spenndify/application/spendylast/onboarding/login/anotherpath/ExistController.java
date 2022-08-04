@@ -6,10 +6,10 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-//@CrossOrigin("*")
 @RestController
 @RequestMapping("/spendy/user")
 @AllArgsConstructor
+@CrossOrigin(origins="*")
 public class ExistController {
 
     private final PhoneService phoneService;
