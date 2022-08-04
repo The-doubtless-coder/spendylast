@@ -26,12 +26,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final SpendyService spendyService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private JwtFilter jwtFilter;//enable filter and register filter
-    private SecurityBean securityBean;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors((Customizer<CorsConfigurer<HttpSecurity>>) securityBean)
-//                .and()
+        http.cors()
+                .and()
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/spendy/user/**").permitAll()
