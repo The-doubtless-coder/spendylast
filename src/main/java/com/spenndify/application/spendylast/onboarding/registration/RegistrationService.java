@@ -33,9 +33,9 @@ public class RegistrationService {
                 registrationRequest.getIdNumber(),
                 registrationRequest.getEmail(),
                 registrationRequest.getPhone(),
-                registrationRequest.getQuestionOne(),
-                registrationRequest.getQuestionTwo(),
-                registrationRequest.getQuestionThree(),
+                registrationRequest.getQuestionOne().toLowerCase(),
+                registrationRequest.getQuestionTwo().toLowerCase(),
+                registrationRequest.getQuestionThree().toLowerCase(),
                 registrationRequest.getPassword(),
                 SpendyRoles.USER));
     }

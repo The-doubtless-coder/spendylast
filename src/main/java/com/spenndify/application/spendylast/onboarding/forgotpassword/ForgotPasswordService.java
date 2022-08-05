@@ -20,18 +20,16 @@ public class ForgotPasswordService {
     @Transactional
     public ResponseEntity<String> checkIdValidateQuestions(@NotNull ForgotPasswordRequest forgotPasswordRequest)
             throws IllegalStateException{
-        SpendUser spendUser = spendyRepository.findByIdNumber(forgotPasswordRequest.getIdNumber());
+        SpendUser spendUser = spendyRepository.findByPhone(forgotPasswordRequest.getPhone());
         if(spendUser ==null){
             throw new IllegalStateException("User does not exist!");
         }
-        if(spendUser.getQuestionOne().equals(forgotPasswordRequest.getResponseToSecurityQuestion())||
-                spendUser.getQuestionTwo().equals(forgotPasswordRequest.getResponseToSecurityQuestion())||
-                spendUser.getQuestionThree().equals(forgotPasswordRequest.getResponseToSecurityQuestion())){
-            spendyService.changeSpendyUserPassword(bCryptPasswordEncoder
-                    .encode(forgotPasswordRequest.getNewPassword()), forgotPasswordRequest.getIdNumber());
-            return new ResponseEntity<>("password changed successfully", HttpStatus.OK);
-        }else
-            return new ResponseEntity<>("password reset failed!, wrong answer to security question provided",
-                    HttpStatus.BAD_REQUEST);
+        spendyService.changeSpendyUserPassword(bCryptPasswordEncoder
+                    .encode(forgotPasswordRequest.getNewPassword()), forgotPasswordRequest.getPhone());
+        return new ResponseEntity<>("password changed successfully", HttpStatus.OK);
+//        else
+//            return new ResponseEntity<>()
+//          return new ResponseEntity<>("password reset failed!, wrong answer to security question provided",
+//                    HttpStatus.BAD_REQUEST);
     }
 }

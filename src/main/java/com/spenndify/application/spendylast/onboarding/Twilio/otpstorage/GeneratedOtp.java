@@ -1,5 +1,6 @@
 package com.spenndify.application.spendylast.onboarding.Twilio.otpstorage;
 
+import com.spenndify.application.spendylast.onboarding.spendyuser.SpendUser;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -39,7 +40,7 @@ public class GeneratedOtp {
 //            nullable = false,
 //            name = "spendy_user_id"
 //    )
-//    private SpendyUser spendyUser;
+//    private SpendUser spendUser;
 
     public GeneratedOtp(String otp, LocalDateTime createdAt, LocalDateTime expiresAt) {
         this.otp = otp;

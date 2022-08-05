@@ -65,7 +65,7 @@ public class SpendyService implements UserDetailsService {
         spendyRepository.enableSpendyUser(phone);
     }
 
-    public void changeSpendyUserPassword(String password, String idNumber){
-        spendyRepository.changeUserPassword(password, idNumber);
+    public void changeSpendyUserPassword(String password, String phone){
+        spendyRepository.changeUserPassword(password, phone);
     }
 }

@@ -24,6 +24,6 @@ public interface SpendyRepository extends JpaRepository<SpendUser, Long> {
     @Transactional
     @Modifying
     @Query("UPDATE SpendUser s " +
-            "SET s.password = ?1 WHERE s.idNumber = ?2")
-    void changeUserPassword(String password, String idNumber);
+            "SET s.password = ?1 WHERE s.phone = ?2")
+    void changeUserPassword(String password, String phone);
 }
