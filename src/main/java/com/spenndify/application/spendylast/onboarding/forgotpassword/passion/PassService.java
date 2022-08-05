@@ -16,7 +16,7 @@ public class PassService {
         if(user==null){
             throw new Exception("user does not exist");
         }
-        if(user.getQuestionOne()==passionRequest.getPassion().toLowerCase())
+        if(user.getQuestionOne().equals(passionRequest.getPassion().toLowerCase()))
             return new ResponseEntity<>("Details are correct", HttpStatus.OK);
         else
             return new ResponseEntity<>("wrong details provided", HttpStatus.CONFLICT);
