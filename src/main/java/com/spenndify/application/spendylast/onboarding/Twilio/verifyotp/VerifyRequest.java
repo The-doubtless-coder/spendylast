@@ -10,5 +10,5 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class VerifyRequest {
     private String receivedOtp;
-    private String phone;
+//    private String phone;
 }
