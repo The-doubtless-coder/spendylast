@@ -2,6 +2,7 @@ package com.spenndify.application.spendylast.onboarding.Twilio;
 
 import com.spenndify.application.spendylast.onboarding.Twilio.Config.TwilioConfiguration;
 import com.spenndify.application.spendylast.onboarding.Twilio.otpstorage.GeneratedOtp;
+import com.spenndify.application.spendylast.onboarding.Twilio.otpstorage.GeneratedOtpRepository;
 import com.spenndify.application.spendylast.onboarding.Twilio.otpstorage.GeneratedOtpService;
 import com.spenndify.application.spendylast.onboarding.spendyuser.SpendUser;
 import com.spenndify.application.spendylast.onboarding.spendyuser.SpendyRepository;
@@ -27,19 +28,28 @@ public class TwilioSmsSender{
 
     private final TwilioConfiguration twilioConfiguration;
     private final GeneratedOtpService generatedOtpService;
+    private final GeneratedOtpRepository generatedOtpRepository;
 
     public void sendSms(SendRequest sendRequest) throws IllegalStateException{
         if (isPhoneNumberValid(sendRequest.getPhone())){
             PhoneNumber to = new PhoneNumber(sendRequest.getPhone());
             PhoneNumber from = new PhoneNumber(twilioConfiguration.getTrialNumber());
+
+            GeneratedOtp ifPhoneExists = generatedOtpRepository.findByPhone(sendRequest.getPhone());
+            if(ifPhoneExists!=null){
+                generatedOtpRepository.deleteById(ifPhoneExists.getId());
+            }
+
             String otp = generateOTP();
 
             GeneratedOtp generatedOtp = new GeneratedOtp(otp,
                 LocalDateTime.now(),
-                LocalDateTime.now().plusSeconds(15));
+                LocalDateTime.now().plusSeconds(100),
+                    sendRequest.getPhone());
             generatedOtpService.saveGeneratedOtp(generatedOtp);
 
-            String message = "Buda Boss! Otp is " + otp + ". Itumie kuregista spenndify";
+            String message = "Buda Boss! Otp is " + otp + ". Itumie kuregista spenndify in the next 100 seconds";
+
             MessageCreator creator = Message.creator(to, from, message);
             creator.create();
             LOGGER.info("Send sms {}", sendRequest);

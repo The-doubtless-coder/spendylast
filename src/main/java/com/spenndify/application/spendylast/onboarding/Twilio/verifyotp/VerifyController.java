@@ -17,10 +17,10 @@ public class VerifyController {
 
     @PostMapping("/verify/registration/otp")
     public ResponseEntity<String> verifyRegistrationOtp(@RequestBody @NotNull VerifyRequest verifyRequest) throws Exception {
-//        Boolean isPhoneValid = phoneValidator.test(verifyRequest.getPhone());
-//        if(!isPhoneValid){
-//            throw new IllegalStateException("The number provided is invalid!");
-//        }
+        Boolean isPhoneValid = phoneValidator.test(verifyRequest.getPhone());
+        if(!isPhoneValid){
+            throw new IllegalStateException("The number provided is invalid!");
+        }
         return verifyService.compareToStoredOtp(verifyRequest);
     }
 }

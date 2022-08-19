@@ -20,7 +20,6 @@ public class AuthController {
         return "Hoooooreeeei! Spendify";
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/authenticate")
     public String generateToken(@RequestBody AuthRequest authRequest) throws Exception{
         try {

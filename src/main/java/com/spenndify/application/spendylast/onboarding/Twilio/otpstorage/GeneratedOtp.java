@@ -12,6 +12,8 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @Entity
+@Table(name = "otps", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "phone", name = "user_phone_unique")})
 public class GeneratedOtp {
 
     @SequenceGenerator(
@@ -35,6 +37,9 @@ public class GeneratedOtp {
     @Column(nullable = false)
     private LocalDateTime expiresAt;
 
+    @Column(nullable = false)
+    private String phone;
+
 //    @ManyToOne
 //    @JoinColumn(
 //            nullable = false,
@@ -42,9 +47,10 @@ public class GeneratedOtp {
 //    )
 //    private SpendUser spendUser;
 
-    public GeneratedOtp(String otp, LocalDateTime createdAt, LocalDateTime expiresAt) {
+    public GeneratedOtp(String otp, LocalDateTime createdAt, LocalDateTime expiresAt, String phone) {
         this.otp = otp;
         this.createdAt = createdAt;
         this.expiresAt = expiresAt;
+        this.phone = phone;
     }
 }

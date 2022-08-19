@@ -9,4 +9,5 @@ import org.springframework.transaction.annotation.Transactional;
 public interface GeneratedOtpRepository
         extends JpaRepository<GeneratedOtp, Long> {
     GeneratedOtp findByOtp(String otp);
+    GeneratedOtp findByPhone(String phone);
 }

@@ -17,7 +17,10 @@ import java.util.Collections;
 @NoArgsConstructor
 @ToString
 @Entity
-@Table(name = "spender")
+@Table(name = "spenndify_user", uniqueConstraints = {@UniqueConstraint(columnNames
+        = "NationId", name = "spenndify_user_national_id_unique"),
+@UniqueConstraint(columnNames = "Email", name = "spenndify_user_email_unique"),
+@UniqueConstraint(columnNames = "Telephone", name = "spenndify_user_phone_unique")})
 public class SpendUser implements UserDetails {
     @SequenceGenerator(
             name = "user_sequence",
@@ -36,24 +39,21 @@ public class SpendUser implements UserDetails {
     @Column(name= "last_name", nullable = false)
     @NotBlank(message = "surname cannot be null")
     private String lastName;
-    @Column(name= "NationId", nullable = false, unique = true)
+    @Column(name= "NationId", nullable = false)
     @NotBlank(message = "must input value")
     private String idNumber;
-    @Column(name= "Email", nullable = false, unique = true)
+    @Column(name= "Email", nullable = false)
     @Email(message = "invalid address provided")
     @NotBlank
     private String email;
-    @Column(name= "Telephone", nullable = false, unique = true)
-    @Pattern(regexp = "(?:\\+254)(7(?:(?:[9][0-9])|(?:[8][0-9])|(?:[7][0-9])|(?:[6][0-9])|" +
-            "(?:[5][0-9])|(?:[4][0-8])|(?:[3][0-9])|(?:[2][0-9])" +
-            "|(?:[1][0-9])|([0][0-9]))[0-9]{6})", message = "invalid number")
+    @Column(name= "Telephone", nullable = false)
     private String phone;
     @Column(name= "q1", nullable = false)
-    private String questionOne;//change to many to many
+    private String questionOne;
     @Column(name= "q2", nullable = false)
-    private String questionTwo;//change to many to many
+    private String questionTwo;
     @Column(name= "q3", nullable = false)
-    private String questionThree;//change to many to many
+    private String questionThree;
     @Column(name= "password", nullable = false)
     private String password;
     @Enumerated(EnumType.STRING)

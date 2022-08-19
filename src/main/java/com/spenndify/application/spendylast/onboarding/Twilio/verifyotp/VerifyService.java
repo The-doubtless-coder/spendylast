@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
@@ -16,23 +15,21 @@ import java.time.LocalDateTime;
 public class VerifyService {
     private GeneratedOtpRepository generatedOtpRepository;
     private final SpendyService spendyService;
-    @Transactional
     public ResponseEntity<String> compareToStoredOtp( VerifyRequest verifyRequest) throws Exception {
-        GeneratedOtp retrievedOtp = generatedOtpRepository.findByOtp(verifyRequest.getReceivedOtp());
-        if (retrievedOtp == null) {
-            throw new Exception("Otp not available- verification failed");
+        GeneratedOtp findUserOtp = generatedOtpRepository.findByPhone(verifyRequest.getPhone());
+        if (findUserOtp == null) {
+            throw new Exception("Otp was never sent to user with phone [" +
+                    verifyRequest.getPhone() + "], send him/her an otp and try again.");
         }
 
-        if (retrievedOtp.getExpiresAt().isBefore(LocalDateTime.now())) {
+        if (findUserOtp.getExpiresAt().isBefore(LocalDateTime.now())) {
             throw new Exception("Otp is already expired! send another one");
         }
 
-        if (retrievedOtp.getOtp().equals(verifyRequest.getReceivedOtp())) {
-//            spendyService.enableSpendyUser(retrievedOtp.getSpendyUser().getPhone());
-            return new ResponseEntity<>("Otp successfully verified, now set password", HttpStatus.OK);
+        if (findUserOtp.getOtp().equals(verifyRequest.getReceivedOtp())) {
+            return new ResponseEntity<>("Otp successfully verified, i.e correct code provided", HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("Otp verification failed!, please try again "
-                    + verifyRequest.getReceivedOtp(), HttpStatus.CONFLICT);
+            return new ResponseEntity<>("Otp verification failed!, i.e wrong otp code provided " , HttpStatus.CONFLICT);
         }
     }
 }
