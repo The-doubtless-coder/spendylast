@@ -21,9 +21,9 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://ec2-54-208-104-27.compute-1.amazonaws.com:5432/d56nf8oooj2da3
-    username: sktsyuwdiilsvt
-    password: a3f2a7da77099d48b59b885cb709f757d8840543023b002a07b647941d25cec8
+    url: jdbc:postgresql://ec2-44-209-186-51.compute-1.amazonaws.com:5432/d6a3nc65pkdmi0
+    username: nktczcvuppneyc
+    password: f5544018700ad88dd73dd52fd87482cc2725c24c2beb21fe0ca94654cfd3cb54
 
   jpa:
     properties:
@@ -33,3 +33,7 @@ spring:
     hibernate.ddl-auto: create-drop
     generate-ddl: true
     show-sql: true
+
+  server:
+    error:
+      include-message: always
