@@ -1,6 +1,5 @@
 package com.spenndify.application.spendylast.onboarding.Twilio.otpstorage;
 
-import com.spenndify.application.spendylast.onboarding.spendyuser.SpendUser;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -39,13 +38,6 @@ public class GeneratedOtp {
 
     @Column(nullable = false)
     private String phone;
-
-//    @ManyToOne
-//    @JoinColumn(
-//            nullable = false,
-//            name = "spendy_user_id"
-//    )
-//    private SpendUser spendUser;
 
     public GeneratedOtp(String otp, LocalDateTime createdAt, LocalDateTime expiresAt, String phone) {
         this.otp = otp;
