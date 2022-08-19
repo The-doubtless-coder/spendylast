@@ -12,26 +12,16 @@
 #twilio.auth_token= 0d1d9d668a4cd0efdeababd4568c2f30
 #twilio.trial_number= +19706596975
 
-
-
-
-
-
-
 spring:
   datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://ec2-44-209-186-51.compute-1.amazonaws.com:5432/d6a3nc65pkdmi0
-    username: nktczcvuppneyc
-    password: f5544018700ad88dd73dd52fd87482cc2725c24c2beb21fe0ca94654cfd3cb54
-
+    url: jdbc:postgresql://ec2-44-205-64-253.compute-1.amazonaws.com:5432/d4jsh8o6fg515s
+    username: ywihjctzqzgxbr
+    password: 3a18403033a34840c364e3a655e7ef5e19021ab302ab8003c4b2edfacdfbdc8d
   jpa:
     properties:
       hibernate:
-        format_sql: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
-    hibernate.ddl-auto: create-drop
-    generate-ddl: true
+    hibernate.ddl-auto: update
     show-sql: true
 
   server:
