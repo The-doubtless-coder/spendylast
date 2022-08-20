@@ -1,17 +1,3 @@
-#spring.datasource.url = jdbc:postgresql://ec2-54-208-104-27.compute-1.amazonaws.com:5432/d56nf8oooj2da3
-#spring.datasource.username = sktsyuwdiilsvt
-#spring.datasource.password = a3f2a7da77099d48b59b885cb709f757d8840543023b002a07b647941d25cec8
-#spring.jpa.show-sql= true
-#
-#
-#spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.PostgreSQLDialect
-#spring.jpa.hibernate.ddl-auto = update
-#
-#
-#twilio.account_sid= ACbc084a12fa137959cac310c010c65d2b
-#twilio.auth_token= 0d1d9d668a4cd0efdeababd4568c2f30
-#twilio.trial_number= +19706596975
-
 spring:
   datasource:
     url: jdbc:postgresql://ec2-54-208-104-27.compute-1.amazonaws.com:5432/d56nf8oooj2da3
@@ -27,6 +13,10 @@ spring:
   server:
     error:
       include-message: always
+
+allowed:
+  origin: http://localhost:3000
+
 twilio:
   account_sid: ACbc084a12fa137959cac310c010c65d2b
   auth_token : 0d1d9d668a4cd0efdeababd4568c2f30
