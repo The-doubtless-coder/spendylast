@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/spendy/user")
-@CrossOrigin(origins="*")
+//@CrossOrigin(origins="*")
 public class VerifyController {
 
     private final VerifyService verifyService;

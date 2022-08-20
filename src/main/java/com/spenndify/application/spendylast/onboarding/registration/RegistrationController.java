@@ -10,7 +10,7 @@ import java.util.InvalidPropertiesFormatException;
 @RestController
 @RequestMapping("/spendy/user")
 @AllArgsConstructor
-@CrossOrigin(origins="*")
+//@CrossOrigin(origins="*")
 public class RegistrationController {
     private RegistrationService registrationService;
 

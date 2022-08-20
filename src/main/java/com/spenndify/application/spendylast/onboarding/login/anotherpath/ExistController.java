@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/spendy/user")
 @AllArgsConstructor
-@CrossOrigin(origins="*")
+//@CrossOrigin(origins="*")
 public class ExistController {
 
     private final PhoneService phoneService;

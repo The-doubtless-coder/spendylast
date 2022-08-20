@@ -14,9 +14,9 @@
 
 spring:
   datasource:
-    url: jdbc:postgresql://ec2-44-205-64-253.compute-1.amazonaws.com:5432/d4jsh8o6fg515s
-    username: ywihjctzqzgxbr
-    password: 3a18403033a34840c364e3a655e7ef5e19021ab302ab8003c4b2edfacdfbdc8d
+    url: jdbc:postgresql://ec2-54-208-104-27.compute-1.amazonaws.com:5432/d56nf8oooj2da3
+    username: sktsyuwdiilsvt
+    password: a3f2a7da77099d48b59b885cb709f757d8840543023b002a07b647941d25cec8
   jpa:
     properties:
       hibernate:
@@ -27,3 +27,7 @@ spring:
   server:
     error:
       include-message: always
+twilio:
+  account_sid: ACbc084a12fa137959cac310c010c65d2b
+  auth_token : 0d1d9d668a4cd0efdeababd4568c2f30
+  trial_number: +19706596975
