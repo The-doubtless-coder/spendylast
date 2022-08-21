@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/spendy/user")
 @AllArgsConstructor
-//@CrossOrigin(origins="*")
 public class ForgotPasswordController {
     private final ForgotPasswordService forgotPasswordService;
     private PhoneValidator phoneValidator;

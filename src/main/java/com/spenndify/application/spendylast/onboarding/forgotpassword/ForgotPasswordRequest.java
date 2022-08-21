@@ -9,6 +9,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ForgotPasswordRequest {
     private String phone;
-//    private String responseToSecurityQuestion;
     private String newPassword;
 }

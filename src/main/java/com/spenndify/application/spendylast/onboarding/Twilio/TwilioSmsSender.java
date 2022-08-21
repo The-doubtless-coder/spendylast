@@ -44,7 +44,7 @@ public class TwilioSmsSender{
 
             GeneratedOtp generatedOtp = new GeneratedOtp(otp,
                 LocalDateTime.now(),
-                LocalDateTime.now().plusSeconds(100),
+                LocalDateTime.now().plusSeconds(60),
                     sendRequest.getPhone());
             generatedOtpService.saveGeneratedOtp(generatedOtp);
 

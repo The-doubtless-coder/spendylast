@@ -20,17 +20,6 @@ public class PhoneService {
         if(user==null){
             throw new Exception("User is not registered with us, slide to the registration page");
         }
-//        String otp = generateOTP();
-//        GeneratedOtp generatedOtp = new GeneratedOtp(otp,
-//                LocalDateTime.now(),
-//                LocalDateTime.now().plusDays(5), user);
-//        generatedOtpService.saveGeneratedOtp(generatedOtp);
-//        String message = "Buda Boss! Otp is " + otp + ". Endelea na login";
-//        twilioSmsSender.sendSms(phoneRequest.getPhone(), message);
         return new ResponseEntity<>("User is registered with us, slide to verify otp", HttpStatus.OK);
     }
-//    public String generateOTP(){
-//        return new DecimalFormat("0000")
-//                .format(new Random().nextInt(9999));
-//    }
 }

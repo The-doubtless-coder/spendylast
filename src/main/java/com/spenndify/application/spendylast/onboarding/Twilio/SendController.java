@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/spendy/user")
 @AllArgsConstructor
-//@CrossOrigin(origins="*")
 public class SendController {
 
     private final TwilioSmsSender twilioSmsSender;

@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/spendy/user")
-//@CrossOrigin(origins="*")
 public class AuthController {
     @Autowired
     private JwtUtil jwtUtil;
