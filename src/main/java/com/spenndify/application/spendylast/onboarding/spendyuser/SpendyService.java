@@ -32,6 +32,7 @@ public class SpendyService implements UserDetailsService {
         if(user==null){
             throw new UsernameNotFoundException(String.format(response, emailOrPhone));
         }
+//        return new SpendUser(user);
         return new User(user.getUsername(), user.getPassword(), user.getAuthorities());
     }
 
@@ -47,14 +48,6 @@ public class SpendyService implements UserDetailsService {
         String passwordEncoded = bCryptPasswordEncoder.encode(spendUser.getPassword());
         spendUser.setPassword(passwordEncoded);
         spendyRepository.save(spendUser);
-
-//        String otp = generateOTP();
-//        GeneratedOtp generatedOtp = new GeneratedOtp(otp,
-//                LocalDateTime.now(),
-//                LocalDateTime.now().plusDays(5), spendyUser);
-//        generatedOtpService.saveGeneratedOtp(generatedOtp);
-//        String message = "Buda Boss! Otp is " + otp + ". Itumie kuregista spenndify";
-//        twilioSmsSender.sendSms(spendyUser.getPhone(), message);
         return new ResponseEntity<>(spendUser, HttpStatus.OK);
     }
     private @NotNull String generateOTP() {

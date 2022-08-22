@@ -77,6 +77,9 @@ public class SpendUser implements UserDetails {
         this.userRole = userRole;
     }
 
+    public SpendUser(SpendUser user) {
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         SimpleGrantedAuthority authority =
@@ -107,6 +110,9 @@ public class SpendUser implements UserDetails {
     @Override
     public boolean isEnabled() {
         return enabled;
+    }
+    public String getFullname(){
+        return this.getFirstName() + " " + this.getLastName();
     }
 
 }

@@ -18,4 +18,5 @@ public class RegistrationController {
             throws InvalidPropertiesFormatException {
         return registrationService.register(registrationRequest);
     }
+
 }
