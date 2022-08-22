@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/auth")
+@RequestMapping("spendy/user/auth")
 public class UserOnDashboard {
 
     private final SpendyRepository spendyRepository;
