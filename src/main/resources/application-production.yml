@@ -13,9 +13,6 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
 
-  server:
-    error:
-      include-message: always
 
 allowed:
   origin: http://localhost:3000
@@ -24,3 +21,7 @@ twilio:
   account_sid: ACbc084a12fa137959cac310c010c65d2b
   auth_token : 0d1d9d668a4cd0efdeababd4568c2f30
   trial_number: +19706596975
+
+server:
+  error:
+    include-message: always
