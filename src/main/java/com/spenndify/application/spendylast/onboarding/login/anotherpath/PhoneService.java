@@ -22,7 +22,7 @@ public class PhoneService {
         }
 //        return new ResponseEntity<>("User is registered with us, slide to verify otp", HttpStatus.OK);
         SpendUser user1 = spendyRepository.findByEmailOrPhone(phoneRequest.getPhone());
-        String fullname = user1.getFullname();
+        String fullname = user1.getFirstName();
 
         ResponseExists responseExists = new ResponseExists("User exists, move to enter pin screen", fullname);
         return new ResponseEntity<>(responseExists, HttpStatus.OK);
