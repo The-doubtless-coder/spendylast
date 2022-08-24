@@ -4,7 +4,10 @@ import com.spenndify.application.spendylast.onboarding.registration.validations.
 import lombok.AllArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/spendy/user")
@@ -14,7 +17,7 @@ public class ExistController {
     private final PhoneService phoneService;
     private final PhoneValidator phoneValidator;
     @PostMapping("/exist")
-    public ResponseEntity<String> doesUserExist(@RequestBody @NotNull PhoneRequest phoneRequest) throws Exception {
+    public ResponseEntity<ResponseExists> doesUserExist(@RequestBody @NotNull PhoneRequest phoneRequest) throws Exception {
         Boolean legit = phoneValidator.test(phoneRequest.getPhone());
         if (!legit){
             throw new IllegalStateException("the phone number provided is not Genuine!");
