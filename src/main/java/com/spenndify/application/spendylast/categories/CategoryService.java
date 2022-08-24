@@ -43,4 +43,10 @@ public class CategoryService {
     public List<Category> getAllCategories(){
         return categoryRepository.findAll();
     }
+
+    public void deleteCategory(String categoryName) {
+        Category category = readCategory(categoryName);
+        Integer id = category.getId();
+        categoryRepository.deleteById(id);
+    }
 }

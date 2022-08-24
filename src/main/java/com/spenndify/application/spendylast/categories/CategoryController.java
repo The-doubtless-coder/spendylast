@@ -2,6 +2,7 @@ package com.spenndify.application.spendylast.categories;
 
 
 import com.spenndify.application.spendylast.categories.config.ApiResponse;
+import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,6 +40,15 @@ public class CategoryController {
     @GetMapping("/list")
     public List<Category> getCategories(){
         return categoryService.getAllCategories();
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<ApiResponse> deleteCategory(@NotNull @RequestBody DeleteCategoryRequest deleteCategoryRequest){
+        if (Objects.nonNull(categoryService.readCategory(deleteCategoryRequest.getCategoryName()))) {
+            categoryService.deleteCategory(deleteCategoryRequest.getCategoryName());
+            return new ResponseEntity<>(new ApiResponse(true, "category has been successfully deleted"), HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(new ApiResponse(false, "Category does not exist"), HttpStatus.BAD_REQUEST);
     }
 
 }

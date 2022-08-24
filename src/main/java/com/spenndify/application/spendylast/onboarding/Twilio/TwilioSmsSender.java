@@ -4,8 +4,6 @@ import com.spenndify.application.spendylast.onboarding.Twilio.Config.TwilioConfi
 import com.spenndify.application.spendylast.onboarding.Twilio.otpstorage.GeneratedOtp;
 import com.spenndify.application.spendylast.onboarding.Twilio.otpstorage.GeneratedOtpRepository;
 import com.spenndify.application.spendylast.onboarding.Twilio.otpstorage.GeneratedOtpService;
-import com.spenndify.application.spendylast.onboarding.spendyuser.SpendUser;
-import com.spenndify.application.spendylast.onboarding.spendyuser.SpendyRepository;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.rest.api.v2010.account.MessageCreator;
 import com.twilio.type.PhoneNumber;
@@ -17,8 +15,6 @@ import org.springframework.stereotype.Service;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.Random;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Service("twilio")
 @AllArgsConstructor
@@ -31,7 +27,7 @@ public class TwilioSmsSender{
     private final GeneratedOtpRepository generatedOtpRepository;
 
     public void sendSms(SendRequest sendRequest) throws IllegalStateException{
-        if (isPhoneNumberValid(sendRequest.getPhone())){
+//        if (isPhoneNumberValid(sendRequest.getPhone())){
             PhoneNumber to = new PhoneNumber(sendRequest.getPhone());
             PhoneNumber from = new PhoneNumber(twilioConfiguration.getTrialNumber());
 
@@ -48,24 +44,22 @@ public class TwilioSmsSender{
                     sendRequest.getPhone());
             generatedOtpService.saveGeneratedOtp(generatedOtp);
 
-            String message = "Buda Boss! Otp is " + otp + ". Itumie kuregista spenndify in the next 100 seconds";
+            String message = "Buda Boss! Otp is " + otp + ". Itumie kuregista spenndify in the next 60 seconds";
 
             MessageCreator creator = Message.creator(to, from, message);
             creator.create();
             LOGGER.info("Send sms {}", sendRequest);
-        } else {
-            throw new IllegalArgumentException(
-                    "Phone number [" + sendRequest.getPhone() + "] is not a valid number, start with +254"
-            );
+//        } else {
+//            throw new IllegalStateException(
+//                    "Phone number [" + sendRequest.getPhone() + "] is not a valid number, start with +254"
+//            );
         }
 
-    }
-
-    private boolean isPhoneNumberValid(String s) {
-        Pattern pattern = Pattern.compile("(?:\\+254)(7(?:(?:[9][0-9])|(?:[8][0-9])|(?:[7][0-9])|(?:[6][0-9])|(?:[5][0-9])|(?:[4][0-8])|(?:[3][0-9])|(?:[2][0-9])|(?:[1][0-9])|([0][0-9]))[0-9]{6})");
-        Matcher match = pattern.matcher(s);
-        return (match.find() && match.group().equals(s));
-    }
+//    private boolean isPhoneNumberValid(String s) {
+//        Pattern pattern = Pattern.compile("(?:\\+254)(7(?:(?:[9][0-9])|(?:[8][0-9])|(?:[7][0-9])|(?:[6][0-9])|(?:[5][0-9])|(?:[4][0-8])|(?:[3][0-9])|(?:[2][0-9])|(?:[1][0-9])|([0][0-9]))[0-9]{6})");
+//        Matcher match = pattern.matcher(s);
+//        return (match.find() && match.group().equals(s));
+//    }
     public String generateOTP(){
         return new DecimalFormat("0000")
                 .format(new Random().nextInt(9999));
