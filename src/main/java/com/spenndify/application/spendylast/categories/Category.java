@@ -1,5 +1,7 @@
 package com.spenndify.application.spendylast.categories;
 
+import com.spenndify.application.spendylast.onboarding.spendyuser.SpendUser;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
@@ -17,6 +19,10 @@ public class Category {
     private @NotBlank String description;
 
     private @NotBlank String imageUrl;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "spend_user_id", referencedColumnName = "id")
+    private SpendUser spendUser;
+
 
 
     public Category() {
@@ -31,6 +37,21 @@ public class Category {
         this.categoryName = categoryName;
         this.description = description;
         this.imageUrl = imageUrl;
+    }
+
+    public Category(String categoryName, String description, String imageUrl, SpendUser spendUser) {
+        this.categoryName = categoryName;
+        this.description = description;
+        this.imageUrl = imageUrl;
+        this.spendUser = spendUser;
+    }
+
+    public SpendUser getSpendUser() {
+        return spendUser;
+    }
+
+    public void setSpendUser(SpendUser spendUser) {
+        this.spendUser = spendUser;
     }
 
     public String getCategoryName() {

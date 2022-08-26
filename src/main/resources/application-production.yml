@@ -13,14 +13,13 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
 
+twilio:
+  account_sid: AC226790d7794304cda60486beda30130e
+  auth_token: 03cadf483f451c2166808a0b08b9ff72
+  trial_number: +16307934582
 
 allowed:
   origin: http://localhost:3000
-
-twilio:
-  account_sid: ACbc084a12fa137959cac310c010c65d2b
-  auth_token : 0d1d9d668a4cd0efdeababd4568c2f30
-  trial_number: +19706596975
 
 server:
   error:

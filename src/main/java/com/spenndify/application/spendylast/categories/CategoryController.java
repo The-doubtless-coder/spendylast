@@ -2,10 +2,14 @@ package com.spenndify.application.spendylast.categories;
 
 
 import com.spenndify.application.spendylast.categories.config.ApiResponse;
+import com.spenndify.application.spendylast.onboarding.spendyuser.SpendUser;
+import com.spenndify.application.spendylast.onboarding.spendyuser.SpendyRepository;
 import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -19,12 +23,21 @@ public class CategoryController {
 
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private SpendyRepository spendyRepository;
     @PostMapping("/create")
-    public ResponseEntity<ApiResponse> createCategory(@Valid @RequestBody Category category) {
+    public ResponseEntity<ApiResponse> createCategory(@Valid @RequestBody CategoryRequest category) {
         if (Objects.nonNull(categoryService.readCategory(category.getCategoryName()))) {
             return new ResponseEntity<ApiResponse>(new ApiResponse(false, "category already exists"), HttpStatus.CONFLICT);
         }
-        categoryService.createCategory(category);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String phoneOrEmail = auth.getName();
+
+        SpendUser user = spendyRepository.findByEmailOrPhone(phoneOrEmail);
+        categoryService.createCategory(new Category(category.getCategoryName(),
+                category.getDescription(),
+                category.getImageUrl(), user)
+        );
         return new ResponseEntity<>(new ApiResponse(true, "created the category"), HttpStatus.CREATED);
     }
 
@@ -39,6 +52,10 @@ public class CategoryController {
 
     @GetMapping("/list")
     public List<Category> getCategories(){
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        String phoneOrEmail = auth.getName();
+//
+//        SpendUser user = spendyRepository.findByEmailOrPhone(phoneOrEmail);
         return categoryService.getAllCategories();
     }
 

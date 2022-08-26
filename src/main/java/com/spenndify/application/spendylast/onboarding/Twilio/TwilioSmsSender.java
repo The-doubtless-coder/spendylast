@@ -44,7 +44,7 @@ public class TwilioSmsSender{
                     sendRequest.getPhone());
             generatedOtpService.saveGeneratedOtp(generatedOtp);
 
-            String message = "Buda Boss! Otp is " + otp + ". Itumie kuregista spenndify in the next 60 seconds";
+            String message = "Your OTP is " + otp + ". Itumie kuregista spenndify!";
 
             MessageCreator creator = Message.creator(to, from, message);
             creator.create();
